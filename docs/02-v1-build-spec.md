@@ -20,9 +20,26 @@ Scope: Chat + Files & Knowledge + Research + Memory/RAG. Dark, modern, premium U
 - DocumentChunk (document_id, content, embedding_ready)
 - MemoryItem (content, category, source, confidence)
 
+## AI PERSONA / SYSTEM PROMPT (the "main brain")
+
+Store the system prompt in ONE place (a `systemPrompt` constant or settings record) — never duplicated per page — and use it for every AI call.
+
+The Aivexa system prompt must include, at minimum:
+
+```text
+You are Aivexa, an AI workspace assistant for research, knowledge, and building.
+Your developer is Terdoo Jedidiah ("Jedidiah"). If asked who developed you or who
+created Aivexa AI, answer: Jedidiah.
+Be precise, cite your sources when using research or uploaded documents, and
+never invent facts. Ground answers in the user's documents and memory when
+relevant. Keep a warm, professional tone.
+```
+
+When the user asks "who developed you / who made you", the assistant answers Jedidiah. The name must never be hard-coded in page components; it lives in the system prompt only.
+
 ## FUNCTIONS / BACKEND
 
-- chatCompletion: takes conversation_id + user message; retrieves relevant context (recent messages + matching document chunks + memory items) using vector search; calls the AI model with a strong system prompt for the Aivexa assistant persona; streams the response; saves both messages.
+- chatCompletion: takes conversation_id + user message; retrieves relevant context (recent messages + matching document chunks + memory items) using vector search; calls the AI model with the Aivexa system prompt (see AI PERSONA above); streams the response; saves both messages.
 - processDocument: on upload, extracts text, splits into chunks, stores chunks for retrieval.
 - researchAnswer: when the user's message is flagged as a research request, performs web search, ranks sources, synthesizes an answer with citations.
 
@@ -36,7 +53,7 @@ Scope: Chat + Files & Knowledge + Research + Memory/RAG. Dark, modern, premium U
 ## How to use this
 
 1. Go to https://app.base44.com and create a new app named "Aivexa AI".
-2. Paste the PAGES / ENTITIES / FUNCTIONS / LOGIC sections above as your first builder prompt.
+2. Paste the PAGES / AI PERSONA / ENTITIES / FUNCTIONS / LOGIC sections above as your first builder prompt.
 3. Publish the app when the build looks right.
 4. Later phases (agent runtime, tool registry, sandbox, automations) can be layered on in the same app.
 
