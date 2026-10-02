@@ -43,3 +43,7 @@ Scope: Chat + Files & Knowledge + Research + Memory/RAG. Dark, modern, premium U
 ## Keep the backend modular
 
 Because you've previously used builders such as Floot/Base44/Bolt, keep the architecture modular enough that critical services can eventually move out of the builder and into your own infrastructure.
+
+## Roadmap note
+
+This V1 scope is deliberately small: Chat, Files, RAG, Memory, Research, Model Gateway. Agents, tools, coding, sandbox, and the Builder are **not** in V1 — they land in V2-V5 per `11-training-and-model-roadmap.md`. The subsystem specs in docs 03-09 must be followed when those versions are built; do not let a builder improvise the Model Gateway, Agent Runtime, Tool Registry, permissions, or sandbox.
